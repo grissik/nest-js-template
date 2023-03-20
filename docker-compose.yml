@@ -1,0 +1,30 @@
+version: '1'
+
+services:
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - '8080:8080'
+  postgres:
+    image: "postgres:latest"
+    container_name: postgres
+    hostname: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+  cats:
+    build:
+      dockerfile: Dockerfile
+      context: ./cats
+    depends_on: 
+      - postgres
+    environment:
+      - PGHOST=postgres
+      - PGPORT=5432
+      - PGDATABASE=cats
+      - PGUSER=postgres
+      - PGPASS=postgres

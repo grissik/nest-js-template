@@ -1,0 +1,14 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+}
+
+model Cat {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+}
